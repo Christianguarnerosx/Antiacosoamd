@@ -1,0 +1,713 @@
+/*------------------------------------------------------------------Index----------------------------------------------------------------*/
+/*Si se quiere hacer cambios globales como tipo de letra, background, etc va en el body*/
+/*Elimina la barra de dezplazamiento*/
+body {
+  overflow-y: hidden; /* Oculta la barra de desplazamiento vertical */
+  overflow-y: overlay; /* Mantiene el desplazamiento, incluso si no hay barra visible */
+  /*scroll-behavior: smooth; Se supone hace mas liviano el scroll mas tranquilo*/
+}
+
+/*Eliminar la barra de navegacion*/
+/* Otra opción para navegadores que no admiten 'overflow-y: overlay' */
+body::-webkit-scrollbar {
+  width: 0.1em; /* Ancho de la barra de desplazamiento en navegadores WebKit */
+} /*Hasta aqui se elimina la barra de desplazamiento*/
+
+/*-----------------------------------------------------------------Contendor 1 index*/
+#contenedor1index {
+  background-image: url("../imagenes/fondos/gusano.gif"); /*Asignamos un fondoa toda la interfaz*/
+  background-size: cover; /*Hace qyue se ajuste al tamño de la interfaz*/
+  background-repeat: no-repeat; /*Hace que solo aparezca una imagen*/
+  margin-top: -1.3%;
+  padding-bottom: 1.75%;
+  height: 100%;
+}
+
+/* Controla posición y apariencia del nav del index */
+#menuindex {
+  z-index: 2; /*Sobre pone a todos los elementos y al menu de botones (que esta en el index 1)*/
+  position: fixed;
+  font-size: 1.5rem;
+  margin-left: 7%;
+  margin-top: 3%;
+  padding: 0;
+  transition: height 10s ease-in;
+}
+
+/* Maneja los enlaces del nav/menu */
+#menuindex .nav-link {
+  position: relative;
+  color: aliceblue;
+}
+
+/*Crea la animacion de hacer la linea cuando se sobrepone (primera parte) esta comprimida/escondida*/
+#menuindex .nav-link::before {
+  content: "";
+  position: absolute;
+  width: 92%;
+  height: 2px; /*Ancho de la linea*/
+  bottom: 0;
+  left: 3%;
+  background-color: aliceblue;
+  transform: scaleX(
+    0
+  ); /*Comienza "invisible hasta que se le haga el hover-after"*/
+  transform-origin: bottom right;
+  transition: transform 0.3s ease; /*Hace que la animacion sea de izq a derecha con transform sin el lo hace de enmedio a los lados*/
+}
+
+/*Accion de sobreponer, expande la línea hacia afuera (parte 2) */
+#menuindex .nav-link:hover::before {
+  transform: scaleX(1); /*Se hace visible la animacion declarada en el before*/
+  transform-origin: bottom left;
+}
+
+/*Accion para el menu/nav, se hace mas grande el que este sobrepuesto el mouse*/
+#menuindex .nav-link:hover {
+  transform: scale(1.1);
+}
+
+/*Cuando detecte que una este activa solo a esa le mantendra la linea*/
+#menuindex .nav-link.active::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/*Deja la letra grande cuando esta seleccionado/activado/active un elemento*/
+#menuindex .nav-link.active {
+  font-weight: bold;
+  transform: scale(1.1);
+}
+
+#menuindex #btninicioindex {
+  background-color: rgba(0, 237, 95, 0.123);
+  border-radius: 50px;
+  font-weight: bolder;
+  border: 2px solid rgb(255, 255, 255);
+}
+
+#menuindex #btninicioindex:hover {
+  background-color: rgba(0, 237, 95, 0.689);
+  color: aliceblue;
+  transform: scale(1.1);
+}
+
+/*Maneja la posicion del logo*/
+#logoindex {
+  position: fixed;
+  z-index: 1;
+  width: 7%;
+  left: 1%;
+  top: 0%;
+}
+
+/*Conterola la posicion, tamaño, espaciado de las letras del titulo*/
+#tituloindex {
+  padding-top: 24%; /*Separacion del encabezado*/
+  text-align: center;
+  color: aliceblue;
+  font-size: 5rem;
+  font-weight: bold;
+  letter-spacing: 2.1rem; /*Separa las letras*/
+}
+
+/*Controla la posicion, tamaño, espaciado de las letras del subtitulo*/
+#subtituloindex {
+  text-align: center;
+  color: aliceblue;
+  font-size: 1.8rem;
+}
+
+/*Maneja el span de letras que aparecen y desaparecen por si se quiere dar estilos aparte*/
+#descripcionindex {
+  transition: 2 ease;
+}
+
+/*La columna donde esta el nav se sobre pone a la otra donde esta el titulo*/
+/*Para hacer un elemento flotante y que no afecte a nada mas es con "fixed" 
+y para su posicion solo guiarlo con top left (no con margin/padding)*/
+#contenedorpuntosindex {
+  position: fixed; /*Hace que se quede fijado en una posicion*/
+  left: 95%;
+  top: 80%;
+  z-index: 2; /*Sobre pone a todo los componentes/contenedores (ellos estan "normal" su index: 0)*/
+}
+
+/*Maneja los puntos que muestran en que parte se encuentran de la pantalla, arriba, abajo, etc*/
+#spypuntosindex {
+  display: flex; /*auxiliar del de abajo Hace que el nav este en forma vertical/ predeterminado esta horizontal*/
+  flex-direction: column; /*Va junto con la linea del siplay flex para hacerlo este es el que hace vertical*/
+  font-size: 3rem;
+  font-weight: 900; /*Grosor de los puntos/ que tan grandes*/
+}
+
+/*Maneja los nav-link de puntos que muestran en que parte se encuentran de la pantalla, arriba, abajo, etc*/
+#spypuntosindex .nav-link {
+  margin-top: -10%; /*Hace que los puntos se junten de arriba a abajo que estan del lado derecho quienes indican la pisicion de la pantalla*/
+  color: aliceblue;
+}
+
+/*Tarjeta pantalla 1 abajo izquierda*/
+#cardvideoindex {
+  font-size: 1.5rem;
+  width: 25%;
+  height: 15%;
+  background-color: rgba(255, 255, 255, 0.416);
+  margin-top: 15.5%;
+  color: aliceblue;
+}
+
+/*Maneja el Borde de una columna que hace la funcion de separar las dos como linea blanca*/
+#lineacardindex {
+  margin-top: 6%;
+  margin-bottom: 8%;
+  border-color: aliceblue;
+  border-right: 2px solid rgb(255, 255, 255);
+}
+
+/*Maneja la posicion/tamaño del video de youtube*/
+#videoindex {
+  margin-top: 4.2%;
+  width: 15vw;
+  height: 13vh;
+}
+
+/*-----------------------------------------------------------------Contendor 2 index*/
+#contenedor2index {
+  /* url("../imagenes/gusano.gif"); /*Indica el fondo del contenedor 2, acerca de*/
+  /*background-size: cover; /*Asigna la posicion para poder cubrir toda la interfaz/ tipo responsive*/
+  /*background-repeat: no-repeat; /*Muestra solo una imagen /Evita que se impriman muchas imagnes*/
+  background-color: rgb(0, 136, 255);
+  height: 8 0vh; /*Asigna un tamaño predeterminado/ para que se muestre siempre*/
+}
+
+/*Cuadro blanco que esta en medio entre el fondo y el contenido(hasta el frente)*/
+#seccionblanca1index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /*margin-left: 1%;
+  margin-right: 0%;*/ /*Estas 2 lineas hacen que se haga un espaciado (al section al medio) y se logre ver el fondo de imagen   /contenedor*/
+  background-color: rgb(255, 255, 255);
+  color: #4dce90;
+  text-align: justify;
+}
+
+/*Maneja el tamaño/posicion/letra del texto/titulo que esta a la izq de la imagen del contendor 2*/
+#tituloacercaindex {
+  padding-left: 8%;
+  padding-right: 8%;
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+/*Maneja el tamaño/posicion del texto/descripcion que esta a la izq de la imagen del contendor 2*/
+#descripcionacercaindex {
+  padding-left: 8%;
+  padding-right: 8%;
+  font-size: 1.5rem;
+}
+
+/*IMPORTANTE trabajando con la libreria simplepárallax(los padding son unicos que se pueden utilizar para mover la imagen) los margin al parecer no los acepta(hasta hoy no se sidespue... hay revisa por si las moscas)*/
+#imagenc2index {
+  padding-right: 4%;
+  padding-top: 3%;
+}
+
+/*Maneja la posicion del boton y el tamaño con los padding ademas del boton que esta en el contenedor acerca a la izq del contenedor y de la imagen*/
+#botonacercaindex {
+  margin-top: 5%; /*Posicion*/
+  margin-left: 7%; /*Posicion*/
+  padding-left: 4%; /*Tamaño*/
+  padding-right: 4%;
+  padding-top: 1%;
+  padding-bottom: 1%; /*Tamaño*/
+  font-size: 1.5rem;
+  background-color: #4dce90;
+  color: aliceblue;
+  border-color: #ffffff00; /*Boder invisible jsjs no me convencio*/
+  border-radius: 50px;
+}
+
+/*Maneja la accion sobreponer del boton del contendor 2 debajo del texto solo se hara grande/tamaño/letra*/
+#botonacercaindex:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+/*-----------------------------------------------------------------Contendor 3 index*/
+#contenedor3index {
+  /* url("../imagenes/gusano.gif"); /*Indica el fondo del contenedor 2, acerca de*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  background-size: cover; /*Asigna la posicion para poder cubrir toda la interfaz/ tipo responsive*/
+  background-repeat: no-repeat; /*Muestra solo una imagen /Evita que se impriman muchas imagnes*/
+  height: 80vh; /*Asigna un tamaño predeterminado/ para que se muestre siempre*/
+}
+
+/*Maneja las credenciales donde iran infromacion de la escvuela y la empresa*/
+.cardc3index {
+  z-index: 2; /*Sirve para que tambien en la imagen se pueda hacer hover, su checkbox se va al frente der la imagen*/
+  background-color: rgb(255, 255, 255);
+  width: 30vw;
+  height: 70vh;
+  padding-left: 2%;
+  padding-right: 2%;
+  filter: contrast(100%);
+}
+
+/*Maneja el fondo que tiene cada imagen atras, es un row que las contiene*/
+.fondoimagenindex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+}
+
+/*Maneja el tamaño de la imagen de la card izq*/
+#imgcard1c3index {
+  margin-left: 18%;
+  width: 34vh;
+}
+
+/*Maneja el tamaño de la imagen de la card der*/
+#imgcard2c3index {
+  width: 50vh;
+}
+
+/*Maneja el tamaño de la imagen de la card der (para responsive mas adaptable el tamaño 17vh)*/
+#imgcard3c3index {
+  width: 17vh;
+}
+
+/*Maneja el tamaño de la imagen de la card der*/
+#imgcard4c3index {
+  width: 17vh;
+}
+
+/*Maneja los 2 tamaños de titulos de las car*/
+.tituloscardsc3index {
+  padding-top: 9%;
+  font-size: 3.5rem;
+}
+
+/*Maneja el tamaño de las descripciones de las cards*/
+.descripcionescardsc3index {
+  font-size: 1.5rem;
+}
+
+/*Maneja a los links de mas informacion posicion tamaño*/
+.linkcard1c3index {
+  padding-top: 2%;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: #4dce90;
+}
+
+/*Maneja el accion sobreponer pone borde/hace mas grande/ y lo hace mas visible */
+.cardc3index:hover {
+  position: relative; /*Sobre pone la card seleccionada una de la otra*/
+  z-index: 1; /*Manda al frente la card*/
+  transform: scale(1.1);
+  border: #4dce90 4px solid;
+  transition: 0.3s ease;
+}
+
+/*Accion sobreponer que hace que el link se haga grande y se mueva un poco para corregir posicion*/
+.linkcard1c3index:hover {
+  margin-left: 0.5%;
+  font-weight: bold;
+}
+
+/*Accion sobreponer que hace que la flecha se mueva un poco a la derecha */
+.linkcard1c3index:hover .flechacardc3index {
+  margin-left: 1.5%;
+  transition: 0.25s ease;
+}
+
+/*-----------------------------------------------------------------Contendor 4 index*/
+#contenedor4index {
+  /* url("../imagenes/gusano.gif"); /*Indica el fondo del contenedor 2, acerca de*/
+  background-color: aliceblue;
+  background-size: cover; /*Asigna la posicion para poder cubrir toda la interfaz/ tipo responsive*/
+  background-repeat: no-repeat; /*Muestra solo una imagen /Evita que se impriman muchas imagnes*/
+}
+
+/*Maneja posicion del carruzel y el tamaño, sin esto el carruzel no abarcara toda la pantalla*/
+.carruzelindex {
+  margin-left: -0.65%;
+}
+
+/*Maneja la posicion y tamaño de los titulos dentro del carruzel*/
+.titulocarruzelindex {
+  margin-left: -9%;
+  padding-bottom: 2%;
+  text-align: left;
+  font-size: 5rem;
+}
+
+/*Maneja la posicion y tamaño de las descripciones dentro del carruzel*/
+.descripcioncarruzelindex {
+  margin-left: -9%;
+  padding-bottom: 0%;
+  padding-right: 50%;
+  text-align: justify;
+  font-size: 1.5rem;
+}
+
+/*Maneja la posicion y tamaño del boton de la imagen 1 del carruzel index*/
+.butoncarruzeliaindex {
+  margin-left: -96%;
+  margin-bottom: 25%;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  font-size: 2rem;
+  background-color: rgb(15, 134, 253);
+  color: aliceblue;
+  border-color: #ffffff00;
+  border-radius: 50px;
+}
+
+/*Accion de sobreponer en el boton de la imagen 1 () del carruzel index*/
+.butoncarruzeliaindex:hover {
+  transform: scale(1.1);
+  background-color: rgb(15, 134, 253);
+  font-weight: bold;
+  transition: 0.3s e;
+}
+
+/*-----------------------------------------------------------------Contendor 5 index*/
+#contenedor5index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* url("../imagenes/gusano.gif"); /*Indica el fondo del contenedor 2, acerca de*/
+  background-size: cover; /*Asigna la posicion para poder cubrir toda la interfaz/ tipo responsive*/
+  background-repeat: no-repeat; /*Muestra solo una imagen /Evita que se impriman muchas imagnes*/
+  background-color: rgb(221, 255, 0);
+  color: #4dce90;
+  height: 45vh; /*Asigna un tamaño predeterminado/ para que se muestre siempre*/
+}
+
+/*Controla el tamaño del titulo de cultura*/
+#tituloculturaindex {
+  font-size: 5rem;
+}
+
+/*Controla el tamaño de las descripciones de cultura*/
+#descripcionculturaindex {
+  font-size: 1.5rem;
+}
+
+/*-------------------------------------------------------------------------------------------------Inicio Sesion -----------------------------*/
+#body-sesion {
+  /*background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(192, 219, 255, 1) 24%,
+    rgba(138, 233, 187, 1) 51%
+  );*/
+  background-image: url("../imagenes/fondos/gusano.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+/*Este el container de cuadroblanco hace que el cuadro se popnga al medio*/
+#contenedortarjetasesion {
+  height: 100vh;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Maneja el tamaño de la card blanca/hace que los elementos dentro de el se vayan a dentro cuadro donde van todos los elementoas*/
+#cardsesion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 800px;
+  width: 550px;
+  background-color: aliceblue;
+}
+
+/*Maneja posicion y tamaño del logo de el cuadro de en medio (donde van los componentes(el cuadro blanco))*/
+#logosesion {
+  width: 75%;
+  margin-top: -20%;
+  margin-left: 15%;
+  padding-bottom: 15%;
+}
+
+/*Maneja el contenedor donde esta el label de olvidaste sesion, hace que se pueda poner margenes/padding (posicion)*/
+#contenedorolvidastesesion {
+  justify-content: left;
+  margin-top: 1%;
+}
+
+/*Maneja el label de olvidaste sesion*/
+#olvidastesesion {
+  color: rgb(15, 134, 253);
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+/*Maneja el contenedor donde esta el lboton de siguiente/iniciar sesion, hace que se pueda poner margenes/padding (posicion)*/
+#contenedorbtnsesion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Maneja el boton para centrarlo y darle tamaño/color/fondo*/
+#botoniniciarsesion {
+  width: 250px;
+  height: 55px;
+  background-color: rgb(15, 134, 253);
+  color: aliceblue;
+  border-radius: 20px;
+  border-color: #ffffff00;
+  font-size: 1.2rem;
+  margin-top: 10%;
+}
+
+/*Accion de sobreponer/ hace que el texto de olvidaste sea mas grande cuando se sobreponga en el mouse*/
+#olvidastesesion:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+/*Accion de sobreponer/ hace que el boton y el texto del boton de iniciar/siguiente sea mas grande cuando se sobreponga en el mouse*/
+#botoniniciarsesion:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+}
+/*--------------------------------------------------------------------------------------------Recuperarpass*/
+/*Se asigna el fondo a todo el body/cuerpo*/
+#body-recuperarpass {
+  background-image: url("../imagenes/fondos/gusano.gif");
+  background-repeat: no-repeat; /*3 lineas para centrar todo vertical y horizontalmente*/
+  background-size: cover;
+  display: flex;
+}
+
+/*Contenedor donde estara la seccion blanca*/
+#contenedorrecuperarpass {
+  height: 100vh;
+  width: auto;
+  display: flex; /*Centra vertical y horizontalmente las cosas que esten dentero de el cuadro(rows/cols)*/
+  align-items: center;
+  justify-content: center;
+}
+
+/*Asigna el tamaño del cuadro blanco que esta de tras de los elementos*/
+#cuadrorecuperarpass {
+  height: 800px;
+  width: 550px;
+  background-color: aliceblue;
+}
+
+/*contendor para centrar el elemento pass */
+.contenedorelementosrecuperarpass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Controla el tamaño de el input a lo ancho*/
+#inputrecuperarpass {
+  width: 330px;
+  transform: scaley(
+    1.01
+  ); /*Lo hace mas grande a lo alto sin afectar el labbel que esta sobrepuesto/si lo hacen con height si mueve el label*/
+}
+
+/*Controla el tamaño/posicion/tipo de link/letra de los 2 botones para recuperar pass*/
+.botonrecuperarpass {
+  margin-bottom: 2%;
+  width: 250px;
+  height: 55px;
+  color: aliceblue;
+  border: none;
+  font-size: 1.3rem;
+  border-radius: 20px;
+}
+
+/*Controla solo el color de 1 boton(recuperar contraseña)*/
+#btnmandarrecupearpass {
+  background-color: rgb(15, 134, 253);
+}
+
+/*Controla solo el color de 1 boton(cambiar contraseña)*/
+#btncambiarrecupearpass {
+  background-color: rgb(255, 119, 0);
+}
+
+/*Maneja el tamaño del texto bienvenido*/
+#titulorecuperarpass {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/*Maneja el tamaño del texto que ingresen un dato*/
+#avisorecuperarpass {
+  text-align: left;
+  font-size: 1rem;
+}
+
+/*Accion sobreponer que hace mas grandes a los botones*/
+.botonrecuperarpass:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+/*-------------------------------------------------------------------------------------------------------------- Encabezado principalamd*/
+/*Contiene toda la columna de el menu*/
+.contenedoimgrencabezadoamd {
+  display: flex;
+  align-items: center; /*Alinea los pills del nav al centro*/
+  justify-content: center; /*Alinea los pills del nav al centro*/
+}
+
+/*Controla la posicion de las pill de manera vertical*/
+#navamd {
+  display: flex;
+  flex-direction: column;
+}
+
+/*Controla la imagen del encabezado el tamaño/posicion*/
+#imgencabezadoamd {
+  width: 250px;
+  margin-top: 20%;
+  margin-left: -2%;
+}
+
+/*Separa la row entre la imagen y el nav/pills*/
+#contenedorpillsamd {
+  margin-top: 30%; /*Envia las pills hacia abajo*/
+}
+
+/*Controla el color de letra de las navpills (desactivadas)*/
+#navamd .nav-link {
+  color: dodgerblue;
+  font-size: 2.5rem;
+}
+
+/*Controla el color de letra de la pill seleccionada/activa*/
+#navamd .active {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+/*Controla el color de los dropddowns (botones con felchas que muiestran mas opciones)*/
+.botonseleccionencabezado {
+  width: 200px;
+  background-color: #2c8a5d;
+}
+
+/*Controla el boton de texto del dropdown (el que aparece en el boton principal)*/
+.dropmenuencabezado .droprintexto {
+  font-size: 2.5rem;
+  color: dodgerblue;
+}
+
+/*Copntrola las flechas de los drops)*/
+.dropmenuencabezado .dropflecha {
+  font-size: 1.5rem;
+  color: dodgerblue;
+}
+
+/*controla a todas las posiciones de las opciones de los dropdowns dezplegados*/
+.dropmenuencabezado .dropcionesencabezado {
+  z-index: 3;
+  margin-top: 10%;
+  margin-left: 100%;
+}
+
+/*Controla las opciones del menu ya dezplegado las que salen de la flecha del dropdown(lo que esta dentro de la flecha del drop)*/
+.dropmenuencabezado .droptexto {
+  font-size: 2rem;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------Menuextras/avatar*/
+/*Posiciona a la row en medio horizontal y vertical*/
+.centrarextrasamd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Sirve para poder poner todos los extras que esntan dentro de la col en medio*/
+.rowcontenedorextrasamd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 50vh;
+}
+
+/*-----------------------------------------------------------------------------------------------------------------Principal*/
+/*Boton de menu izq en medio de la paginaprincipal*/
+#btnmenuprincipalamd {
+  position: fixed; /*Se hizo fixed para deslindarlo de los demas componentes y este flotando */
+  z-index: 2; /*Sirve para que el boton siempre este arriba de todo el contenido (contenido z-index = 0) (menus z-index = 1) entre mas grande mas arriba*/
+  top: 45vh; /*La position fixed necesita de estos indicadores (top y left) para poder terminar de ponerlo fijado/fixed*/
+  left: 45px; /*La position fixed necesita de estos indicadores (top y left) para poder terminar de ponerlo fijado/fixed*/
+  border-color: #ffffff00;
+  background-color: #ffffff00;
+  transition: 0.5s ease;
+  transform: rotate(
+    90deg
+  ); /*Hace que en su estado inicial este el menu horizontal junto con este va un js para poder hacer movimiento/animacion de traslacion/rotacion/posicion*/
+}
+
+/*Controla el tamaño del boton donde esta el avatar*/
+#btnextrasprincipalamd {
+  position: fixed;
+  z-index: 2; /*Sirve para que el boton siempre este arriba de todo el contenido (contenido z-index = 0) (menus z-index = 1) entre mas grande mas arriba*/
+  top: 30px; /*La position fixed necesita de estos indicadores (top y left) para poder terminar de ponerlo fijado/fixed*/
+  right: 40px; /*La position fixed necesita de estos indicadores (top y left) para poder terminar de ponerlo fijado/fixed*/
+  border-color: #ff000000;
+  background-color: rgb(255, 255, 255);
+  width: 135px;
+  border-radius: 50%;
+  transition: 1s ease;
+}
+/*Controla la imagen que esta dentro del boton avatar*/
+#imgbtnextrasprincipalamd {
+  width: 100%; /* Hace que la imagen ocupe el 100% del contenedor */
+  height: 100%; /* Hace que la imagen ocupe el 100% del contenedor */
+  border-radius: 50%;
+}
+
+/*controla la columna derecha de principalamd(extras avatar)*/
+#extrasamdprincipal {
+  z-index: 1; /*Para que cuando se active la col se sobreponga a las otras 2 (contenido/menuprincipalamd)*/
+  background-color: #49ffa750;
+  width: 100%; /*Definir el tamaño que tomara la col una vez sea dezplegada (si borras esto se descompondra la funcionalidad del menu/contenidoprincipal)*/
+  height: 100%; /*Definir el tamaño que tomara la col una vez sea dezplegada (si borras esto se descompondra la funcionalidad del menu/contenidoprincipal)*/
+  transition: 0.6s ease; /*Si activas esta transition cuando abras los 2 menus al mismo tiempo primero el derecho y despues izq hara una animacion rara*/
+}
+
+/*clase que centra a los 1 menus de la principalamd*/
+.centrarprincipalamd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenedor1principalamd {
+  background-image: url("../imagenes/fondos/gusano.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
